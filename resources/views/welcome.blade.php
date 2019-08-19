@@ -106,7 +106,7 @@
                 </div>
 
 
-                <a href="{{ route('start') }}" type="button" class="btn btn-start">
+                <a href="{{ route('start.index') }}" type="button" class="btn btn-start">
                     START
                 </a>
             </div>
