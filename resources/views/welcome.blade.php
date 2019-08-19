@@ -49,6 +49,10 @@
                 font-size: 84px;
             }
 
+            .subtitle {
+                font-size: 42px;
+            }
+
             .links > a {
                 color: #636b6f;
                 padding: 0 25px;
@@ -61,6 +65,22 @@
 
             .m-b-md {
                 margin-bottom: 30px;
+            }
+
+            .btn-start {
+                background-color: blue;
+                font-size: 35px;
+                color: white;
+                padding: 10px 60px;
+                font-weight: bold;
+                border-radius: 35px;
+                text-decoration: none;
+            }
+
+            .btn-start:hover {
+                cursor: pointer;
+                background-color: green;
+                border-radius: 35px;
             }
         </style>
     </head>
@@ -79,16 +99,16 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    How Good Are You?
+                </div>
+                <div class="subtitle m-b-md">
+                    Test Yourself and find out!
                 </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+
+                <a href="{{ route('start') }}" type="button" class="btn btn-start">
+                    START
+                </a>
             </div>
         </div>
     </body>
