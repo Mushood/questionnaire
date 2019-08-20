@@ -22,3 +22,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/start', 'StartController@index')->name('start.index');
 
 Route::post('/build', 'StartController@build')->name('start.build');
+
+Route::post('/assess', 'StartController@assess')->name('start.assess');
