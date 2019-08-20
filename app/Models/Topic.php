@@ -7,4 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Topic extends Model
 {
     protected $fillable = ['title'];
+
+    const ALL = [
+        "basic", "functions", "strings", "arrays", "oop", "security", "data format and types", "input-output",
+        "web features", "databases and sql", "error handling"
+    ];
 }

@@ -11,10 +11,7 @@ class TopicSeeder extends Seeder
      */
     public function run()
     {
-        $topics = [
-            "basic", "functions", "strings", "arrays", "oop", "security", "data format and types", "input-output",
-            "web features", "databases and sql", "error handling"
-        ];
+        $topics = \App\Models\Topic::ALL;
 
         foreach ($topics as $topic) {
             \App\Models\Topic::create([

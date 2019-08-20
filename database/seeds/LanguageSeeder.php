@@ -11,9 +11,7 @@ class LanguageSeeder extends Seeder
      */
     public function run()
     {
-        $languages = [
-            "php", "css", "html", "js"
-        ];
+        $languages = \App\Models\Language::ALL;
 
         foreach ($languages as $lang) {
             \App\Models\Language::create([
