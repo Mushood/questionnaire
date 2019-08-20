@@ -15,8 +15,12 @@ class CreateSelectionsTable extends Migration
     {
         Schema::create('selections', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('test_id');
-            $table->integer('question_id');
+            $table->integer('test_id')->unsigned();
+            $table->integer('question_id')->unsigned();
+
+            $table->foreign('test_id')->references('id')->on('tests');
+            $table->foreign('question_id')->references('id')->on('questions');
+
             $table->timestamps();
         });
     }
