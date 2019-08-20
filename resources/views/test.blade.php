@@ -13,9 +13,20 @@
 
                             <div class="panel-body">
                                 @foreach($selection->question->options as $option)
-                                    <input type="radio" name="question_{{ $selection->question->id }}" value="{{ $option->id }}"> {{ $option->title }}<br>
+                                    <input type="radio" name="question_{{ $selection->id }}" value="{{ $option->id }}"> {{ $option->title }}<br>
                                 @endforeach
                             </div>
+
+                            @if($selection->answer != null)
+                                <div class="panel-footer">
+                                    {{ $selection->answer->option->title }} -
+                                    @if($selection->answer->option->correct)
+                                        Correct
+                                    @else
+                                        Wrong
+                                    @endif
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

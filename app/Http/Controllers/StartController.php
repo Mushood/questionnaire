@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Answer;
 use App\Models\Question;
 use App\Models\Selection;
 use App\Models\Test;
@@ -43,6 +44,19 @@ class StartController extends Controller
 
     public function assess(Request $request)
     {
-        dd($request->all());
+        $data = $request->all();
+
+        foreach ($data as $key => $d) {
+            if (strpos($key,"uestion")) {
+                $answer = new Answer();
+                $answer->option_id = $d;
+                $answer->selection_id = explode("_", $key)[1];
+                $answer->save();
+            }
+        }
+
+        $test = $answer->selection->test;
+
+        return view('test', compact('test'));
     }
 }
