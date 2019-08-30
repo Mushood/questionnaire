@@ -30,6 +30,9 @@ class StartController extends Controller
 
         $test = new Test();
         $test->identifier = $key;
+        if (Auth::user()) {
+            $test->user_id = Auth::user()->id;
+        }
         $test->save();
 
         $count = Question::all()->count();
