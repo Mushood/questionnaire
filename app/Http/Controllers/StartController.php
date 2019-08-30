@@ -6,7 +6,9 @@ use App\Models\Answer;
 use App\Models\Question;
 use App\Models\Selection;
 use App\Models\Test;
+use App\Utils\StringUtils;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StartController extends Controller
 {
@@ -16,7 +18,6 @@ class StartController extends Controller
     }
 
     /**
-     * #TODO set identifier in session
      * #TODO set unique constraints for selections
      */
     public function build(Request $request)
@@ -25,7 +26,7 @@ class StartController extends Controller
             'number' => 'required|integer'
         ]);
 
-        $key = Test::generateRandomString(10);
+        $key = StringUtils::generateRandomString(10);
 
         $test = new Test();
         $test->identifier = $key;
@@ -42,10 +43,14 @@ class StartController extends Controller
             $selection->save();
         }
 
+        if (Auth::guest()) {
+            $request->session()->put(Test::SESSION_KEY, $key);
+        }
+
         return redirect()->route('start.take', ['identifier' => $key]);
     }
 
-    public function take($identifier)
+    public function take(Request $request, $identifier)
     {
         $test = Test::where('identifier', $identifier)->first();
 
