@@ -4,7 +4,7 @@
     <div class="container">
         <form method="POST" action="{{ route('start.assess') }}">
             {{ csrf_field() }}
-            <h1>{{ $test->identifier }} - @if($test->completed) {{ $test->score() }} @endif</h1>
+            <h1>{{ $test->identifier }} @if($test->completed) - {{ $test->score() }} @endif</h1>
             @foreach($test->selections as $selection)
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">

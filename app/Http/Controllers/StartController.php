@@ -61,7 +61,6 @@ class StartController extends Controller
     }
 
     /**
-     * #TODO provide score
      * #TODO allow update of answers
      * #TODO eager load sql queries
      * #TODO check with horizon
@@ -73,9 +72,14 @@ class StartController extends Controller
 
         foreach ($data as $key => $d) {
             if (strpos($key,"uestion")) {
-                $answer = new Answer();
+                $selectionId = explode("_", $key)[1];
+                $answer = Answer::where('selection_id', $selectionId)->first();
+                if ($answer === null) {
+                    $answer = new Answer();
+                }
+
                 $answer->option_id = $d;
-                $answer->selection_id = explode("_", $key)[1];
+                $answer->selection_id = $selectionId;
                 $answer->save();
             }
         }
