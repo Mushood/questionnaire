@@ -15,6 +15,10 @@ class StartController extends Controller
         return view('start');
     }
 
+    /**
+     * #TODO set identifier in session
+     * #TODO set unique constraints for selections
+     */
     public function build(Request $request)
     {
         $validatedData = $request->validate([
@@ -38,10 +42,23 @@ class StartController extends Controller
             $selection->save();
         }
 
+        return redirect()->route('start.take', ['identifier' => $key]);
+    }
+
+    public function take($identifier)
+    {
+        $test = Test::where('identifier', $identifier)->first();
 
         return view('test', compact('test'));
     }
 
+    /**
+     * #TODO provide score
+     * #TODO allow update of answers
+     * #TODO eager load sql queries
+     * #TODO check with horizon
+     * #TODO validate data
+     */
     public function assess(Request $request)
     {
         $data = $request->all();
@@ -55,7 +72,14 @@ class StartController extends Controller
             }
         }
 
-        $test = $answer->selection->test;
+        return redirect()->route('start.results', [
+            'identifier' => $answer->selection->test->identifier
+        ]);
+    }
+
+    public function results($identifier)
+    {
+        $test = Test::where('identifier', $identifier)->first();
 
         return view('test', compact('test'));
     }

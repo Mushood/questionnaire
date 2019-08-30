@@ -23,4 +23,8 @@ Route::get('/start', 'StartController@index')->name('start.index');
 
 Route::post('/build', 'StartController@build')->name('start.build');
 
+Route::get('/test/{identifier}', 'StartController@take')->name('start.take');
+
 Route::post('/assess', 'StartController@assess')->name('start.assess');
+
+Route::get('/test/results/{identifier}', 'StartController@results')->name('start.results');
