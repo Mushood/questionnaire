@@ -21,6 +21,8 @@ class CreateAnswersTable extends Migration
             $table->foreign('selection_id')->references('id')->on('selections');
             $table->foreign('option_id')->references('id')->on('options');
 
+            $table->unique(['selection_id', 'option_id']);
+
             $table->timestamps();
         });
     }

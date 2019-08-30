@@ -17,9 +17,6 @@ class StartController extends Controller
         return view('start');
     }
 
-    /**
-     * #TODO set unique constraints for selections
-     */
     public function build(Request $request)
     {
         $validatedData = $request->validate([
@@ -61,7 +58,6 @@ class StartController extends Controller
     }
 
     /**
-     * #TODO allow update of answers
      * #TODO eager load sql queries
      * #TODO check with horizon
      * #TODO validate data

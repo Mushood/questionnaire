@@ -21,6 +21,7 @@ class CreateSelectionsTable extends Migration
             $table->foreign('test_id')->references('id')->on('tests');
             $table->foreign('question_id')->references('id')->on('questions');
 
+            $table->unique(['test_id', 'question_id']);
             $table->timestamps();
         });
     }
