@@ -17,4 +17,17 @@ class Test extends Model
     {
         return $this->hasMany('App\Models\Selection');
     }
+
+    public function score()
+    {
+         $score = 0;
+
+         foreach ($this->selections as $selection) {
+             if ($selection->answer->option->correct) {
+                 $score++;
+             }
+         }
+
+         return $score;
+    }
 }

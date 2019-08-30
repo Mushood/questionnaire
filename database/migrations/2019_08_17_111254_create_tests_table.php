@@ -18,6 +18,7 @@ class CreateTestsTable extends Migration
 
             $table->integer('user_id')->nullable()->unsigned();
             $table->string('identifier')->nullable();
+            $table->boolean('completed')->default(false);
 
             $table->foreign('user_id')->references('id')->on('users');
 

@@ -77,8 +77,12 @@ class StartController extends Controller
             }
         }
 
+        $test = $answer->selection->test;
+        $test->completed = true;
+        $test->save();
+
         return redirect()->route('start.results', [
-            'identifier' => $answer->selection->test->identifier
+            'identifier' => $test->identifier
         ]);
     }
 
