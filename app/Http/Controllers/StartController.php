@@ -59,7 +59,6 @@ class StartController extends Controller
 
     /**
      * #TODO eager load sql queries
-     * #TODO check with horizon
      * #TODO validate data
      */
     public function assess(Request $request)
