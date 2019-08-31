@@ -8,6 +8,8 @@ class Question extends Model
 {
     protected $fillable = ['title'];
 
+    protected $with = ['options'];
+
     public function user()
     {
         return $this->belongsTo('App\Models\User');

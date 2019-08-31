@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Answer extends Model
 {
+    protected $with = ['option'];
+
     public function selection()
     {
         return $this->belongsTo('App\Models\Selection');

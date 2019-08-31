@@ -32,14 +32,18 @@ class StartController extends Controller
         }
         $test->save();
 
-        $count = Question::all()->count();
+        $count = Question::count();
 
+        $questionIds = [];
         for($i = 0; $i < $validatedData['number']; $i++) {
-            $question = Question::find(rand(1,$count -1));
+            $questionId = Question::skip(rand(1,$count - count($questionIds) - 1))->whereNotIn('id', $questionIds)->first()->id;
+            array_push($questionIds, $questionId);
+        }
 
+        foreach($questionIds as $questionId) {
             $selection = new Selection();
             $selection->test()->associate($test);
-            $selection->question()->associate($question);
+            $selection->question_id = $questionId;
             $selection->save();
         }
 
@@ -52,13 +56,12 @@ class StartController extends Controller
 
     public function take(Request $request, $identifier)
     {
-        $test = Test::where('identifier', $identifier)->first();
+        $test = Test::where('identifier', $identifier)->with('selections')->first();
 
         return view('test', compact('test'));
     }
 
     /**
-     * #TODO eager load sql queries
      * #TODO validate data
      */
     public function assess(Request $request)
@@ -90,7 +93,7 @@ class StartController extends Controller
 
     public function results($identifier)
     {
-        $test = Test::where('identifier', $identifier)->first();
+        $test = Test::where('identifier', $identifier)->with('selections')->first();
 
         return view('test', compact('test'));
     }
