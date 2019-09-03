@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Question;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -19,6 +20,7 @@ class CreateQuestionsTable extends Migration
             $table->integer('user_id')->nullable()->unsigned();
             $table->integer('language_id')->unsigned();
             $table->integer('topic_id')->unsigned();
+            $table->enum('type', array_values(Question::TYPES))->default(Question::TYPES['standard']);
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('language_id')->references('id')->on('languages');
