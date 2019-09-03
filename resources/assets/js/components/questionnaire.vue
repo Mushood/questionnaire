@@ -1,5 +1,5 @@
 <template>
-    <form method="POST" :action="route_assess">
+    <form>
         <h1>{{ test.identifier }}</h1>
         <div class="row" v-for="(selection,index) in test.selections">
             <div class="col-md-8 col-md-offset-2">
@@ -17,12 +17,18 @@
                             > {{ option.title }}<br>
                         </span>
                     </div>
+
+                    <div class="panel-footer" v-if="selection.answer">
+                        {{ selection.answer.option.title }}
+                        <span v-if="selection.answer.option.correct"> - Correct</span>
+                        <span v-else> - Wrong</span>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-primary" @click.prevent="submitAnswers">Submit</button>
             </div>
         </div>
 
@@ -54,6 +60,9 @@
             types_original: {
                 required: true,
             },
+            csrf: {
+                required: true,
+            },
         },
 
         data() {
@@ -65,16 +74,14 @@
         },
 
         methods : {
-            searchSubmit: function () {
+            submitAnswers: function () {
                 const vm = this;
-                var name = vm.search.name;
-                vm.previous_search = JSON.stringify(vm.search);
-                axios.post(vm.route_search, {
-                    search: vm.search,
-                    changed: vm.changed,
+                axios.post(vm.route_assess, {
+                    _token: vm.csrf,
+                    answers: vm.answers,
                 })
                 .then(function (response_axios) {
-
+                    window.location = response_axios.data.url;
                 })
                 .catch(function (error) {
 

@@ -68,27 +68,28 @@ class StartController extends Controller
     {
         $data = $request->all();
 
-        foreach ($data as $key => $d) {
-            if (strpos($key,"uestion")) {
-                $selectionId = explode("_", $key)[1];
-                $answer = Answer::where('selection_id', $selectionId)->first();
+        foreach ($data['answers'] as $key => $d) {
+                $answer = Answer::where('selection_id', $d['selection_id'])->first();
                 if ($answer === null) {
                     $answer = new Answer();
                 }
 
-                $answer->option_id = $d;
-                $answer->selection_id = $selectionId;
+                $answer->option_id = $d['option_id'];
+                $answer->selection_id = $d['selection_id'];
                 $answer->save();
-            }
         }
 
         $test = $answer->selection->test;
         $test->completed = true;
         $test->save();
 
-        return redirect()->route('start.results', [
-            'identifier' => $test->identifier
-        ]);
+        return response()->json(
+            [
+                'url' => route('start.results', [
+                    'identifier' => $test->identifier
+                ]),
+            ]
+        );
     }
 
     public function results($identifier)

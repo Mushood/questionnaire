@@ -44620,6 +44620,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
@@ -44645,6 +44651,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         types_original: {
             required: true
+        },
+        csrf: {
+            required: true
         }
     },
 
@@ -44658,14 +44667,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
     methods: {
-        searchSubmit: function searchSubmit() {
+        submitAnswers: function submitAnswers() {
             var vm = this;
-            var name = vm.search.name;
-            vm.previous_search = JSON.stringify(vm.search);
-            axios.post(vm.route_search, {
-                search: vm.search,
-                changed: vm.changed
-            }).then(function (response_axios) {}).catch(function (error) {});
+            axios.post(vm.route_assess, {
+                _token: vm.csrf,
+                answers: vm.answers
+            }).then(function (response_axios) {
+                window.location = response_axios.data.url;
+            }).catch(function (error) {});
         }
     }
 });
@@ -44680,7 +44689,6 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "form",
-    { attrs: { method: "POST", action: _vm.route_assess } },
     [
       _c("h1", [_vm._v(_vm._s(_vm.test.identifier))]),
       _vm._v(" "),
@@ -44737,33 +44745,48 @@ var render = function() {
                     }),
                     0
                   )
+                : _vm._e(),
+              _vm._v(" "),
+              selection.answer
+                ? _c("div", { staticClass: "panel-footer" }, [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(selection.answer.option.title) +
+                        "\n                    "
+                    ),
+                    selection.answer.option.correct
+                      ? _c("span", [_vm._v(" - Correct")])
+                      : _c("span", [_vm._v(" - Wrong")])
+                  ])
                 : _vm._e()
             ])
           ])
         ])
       }),
       _vm._v(" "),
-      _vm._m(0)
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.submitAnswers($event)
+                }
+              }
+            },
+            [_vm._v("Submit")]
+          )
+        ])
+      ])
     ],
     2
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
-        _c(
-          "button",
-          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-          [_vm._v("Submit")]
-        )
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
