@@ -4,7 +4,7 @@ Route::get('/', 'PageController@welcome')->name('welcome');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('session_questionnaire');
 
 Route::get('/start', 'StartController@index')->name('start.index');
 

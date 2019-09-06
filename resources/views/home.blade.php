@@ -8,13 +8,21 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
+                    <ul>
+                        @foreach($tests as $test)
+                            @if($test->completed)
+                                <li>
+                                    <a href="{{ route('start.results', ['identifier' => $test->identifier]) }}">{{ $test->identifier }}</a>
+                                    - ({{ $test->score()}} / {{ $test->selections->count() }})
+                                </li>
+                            @else
+                                <li>
+                                    <a href="{{ route('start.take', ['identifier' => $test->identifier]) }}">{{ $test->identifier }}</a>
+                                    - Incomplete
+                                </li>
+                            @endif
+                        @endforeach
+                    </ul>
                 </div>
             </div>
         </div>
