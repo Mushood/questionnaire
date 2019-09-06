@@ -11,4 +11,9 @@ class Language extends Model
     const ALL = [
         "php", "css", "html", "js"
     ];
+
+    public function topics()
+    {
+        return $this->hasMany('App\Models\Topic');
+    }
 }
