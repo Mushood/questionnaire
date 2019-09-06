@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Answer extends Model
 {
+    protected $fillable = ['option_id', 'selection_id'];
+
     protected $with = ['option'];
 
     public function selection()

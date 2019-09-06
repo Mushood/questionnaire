@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Selection extends Model
 {
-    protected $with = ['answer', 'question'];
+    protected $with = ['answers', 'question'];
 
     public function test()
     {
@@ -18,8 +18,8 @@ class Selection extends Model
         return $this->belongsTo('App\Models\Question');
     }
 
-    public function answer()
+    public function answers()
     {
-        return $this->hasOne('App\Models\Answer');
+        return $this->hasMany('App\Models\Answer');
     }
 }

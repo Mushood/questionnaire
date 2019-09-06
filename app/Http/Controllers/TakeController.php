@@ -24,14 +24,19 @@ class TakeController extends Controller
         $data = $request->all();
 
         foreach ($data['answers'] as $key => $d) {
-                $answer = Answer::where('selection_id', $d['selection_id'])->first();
-                if ($answer === null) {
-                    $answer = new Answer();
-                }
+            $multipleAnswers = $d['answers'];
 
-                $answer->option_id = $d['option_id'];
-                $answer->selection_id = $d['selection_id'];
-                $answer->save();
+            $answersPrev = Answer::where('selection_id', $multipleAnswers[0]['selection_id'])->get();
+
+            if ($answersPrev != null) {
+                foreach ($answersPrev as $answerPrev) {
+                    $answerPrev->delete();
+                }
+            }
+
+            foreach ($multipleAnswers as $multiple) {
+                $answer = Answer::create($multiple);
+            }
         }
 
         $test = $answer->selection->test;

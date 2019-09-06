@@ -10,7 +10,7 @@
                         <span v-for="option in selection.question.options">
                             <input
                                 type="radio"
-                                v-model="answers[index]"
+                                v-model="answers[index]['answers'][0]"
                                 :id="option.id"
                                 :name="'question_' + selection.id"
                                 :value="{selection_id: selection.id, option_id: option.id}"
@@ -18,10 +18,25 @@
                         </span>
                     </div>
 
-                    <div class="panel-footer" v-if="selection.answer">
-                        {{ selection.answer.option.title }}
-                        <span v-if="selection.answer.option.correct"> - Correct</span>
-                        <span v-else> - Wrong</span>
+                    <div class="panel-body" v-if="selection.question.type == types.multiple">
+                        <span v-for="option in selection.question.options">
+                            <input
+                                    type="checkbox"
+                                    v-model="answers[index]['answers']"
+                                    :id="option.id"
+                                    :name="'question_' + selection.id"
+                                    :value="{selection_id: selection.id, option_id: option.id}"
+                            > {{ option.title }}<br>
+                        </span>
+                    </div>
+
+                    <div class="panel-footer" v-if="selection.answers.length > 0">
+                        <span v-for="answer in selection.answers">
+                            {{ answer.option.title }}
+                            <span v-if="answer.option.correct"> - Correct</span>
+                            <span v-else> - Wrong</span>
+                            <br />
+                        </span>
                     </div>
                 </div>
             </div>
@@ -44,8 +59,8 @@
 
             for (var i = 0; i < this.test.selections.length; i++) {
                 this.answers[i] = {
-                    'selection_id' : this.test.selections[i].id,
-                    'option_id' : '',
+                    'type' : this.test.selections[i].question.type,
+                    'answers' : []
                 } ;
             }
         },

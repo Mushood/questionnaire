@@ -11,6 +11,7 @@ class Question extends Model
         'multiple'  => 2,
         'boolean'   => 3,
     ];
+
     protected $fillable = ['title'];
 
     protected $with = ['options'];

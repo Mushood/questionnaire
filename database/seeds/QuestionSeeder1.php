@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Question;
 use Illuminate\Database\Seeder;
 
 class QuestionSeeder1 extends Seeder
@@ -23,6 +24,10 @@ class QuestionSeeder1 extends Seeder
 
             $question->topic()->associate($topic);
 
+            if ($i > 25) {
+                $question->type = Question::TYPES['multiple'];
+            }
+
             $question->save();
 
             $correct = rand(1,3);
@@ -33,6 +38,10 @@ class QuestionSeeder1 extends Seeder
                 $option->title = "Option " . $j;
 
                 if ($j === $correct) {
+                    $option->correct = true;
+                }
+
+                if ($j-1 === $correct && $i > 25) {
                     $option->correct = true;
                 }
 
