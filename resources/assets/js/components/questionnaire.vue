@@ -97,6 +97,7 @@
                 axios.post(vm.route_assess, {
                     _token: vm.csrf,
                     answers: vm.answers,
+                    identifier: vm.test.identifier,
                 })
                 .then(function (response_axios) {
                     window.location = response_axios.data.url;

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Answer;
 use App\Models\Question;
 use App\Models\Selection;
 use App\Models\Test;

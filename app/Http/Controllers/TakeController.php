@@ -3,16 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Answer;
-use App\Models\Question;
-use App\Models\Selection;
 use App\Models\Test;
-use App\Utils\StringUtils;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class TakeController extends Controller
 {
-    public function take(Request $request, $identifier)
+    public function take($identifier)
     {
         $test = Test::where('identifier', $identifier)->with('selections')->first();
 
@@ -24,6 +20,10 @@ class TakeController extends Controller
     public function assess(Request $request)
     {
         $data = $request->all();
+
+        $test = Test::where('identifier', $data['identifier'])->with('selections')->first();
+
+        $this->authorize('show', $test);
 
         foreach ($data['answers'] as $key => $d) {
             $multipleAnswers = $d['answers'];
@@ -41,7 +41,6 @@ class TakeController extends Controller
             }
         }
 
-        $test = $answer->selection->test;
         $test->completed = true;
         $test->save();
 
