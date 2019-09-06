@@ -23,8 +23,29 @@ class Test extends Model
          $score = 0;
 
          foreach ($this->selections as $selection) {
-             if ($selection->answer->option->correct) {
-                 $score++;
+             if ($selection->question->type == Question::TYPES['standard']) {
+                 if ($selection->answers[0]->option->correct) {
+                     $score++;
+                 }
+             }
+             if ($selection->question->type == Question::TYPES['multiple']) {
+                 $correctAns = [];
+                 $numCorrect = 0;
+                 foreach ($selection->question->options as $opt) {
+                     if ($opt->correct) {
+                         $numCorrect++;
+                     }
+                 }
+
+                 foreach ($selection->answers as $answer) {
+                     if ($answer->option->correct) {
+                         array_push($correctAns, $answer);
+                     }
+                 }
+
+                 if (count($correctAns) == $numCorrect && count($selection->answers) == $numCorrect) {
+                     $score++;
+                 }
              }
          }
 

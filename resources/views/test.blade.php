@@ -2,6 +2,9 @@
 
 @section('content')
     <div class="container">
+        @if ($test->completed)
+        <h2>{{ $test->score() }}</h2>
+        @endif
         <questionnaire
             route_assess="{{ route('start.assess') }}"
             :test_original="{{ $test }}"
