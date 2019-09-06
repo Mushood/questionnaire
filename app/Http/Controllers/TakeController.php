@@ -16,6 +16,8 @@ class TakeController extends Controller
     {
         $test = Test::where('identifier', $identifier)->with('selections')->first();
 
+        $this->authorize('show', $test);
+
         return view('test', compact('test'));
     }
 
