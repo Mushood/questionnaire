@@ -21,6 +21,7 @@ class CreateQuestionsTable extends Migration
             $table->integer('language_id')->unsigned();
             $table->integer('topic_id')->unsigned();
             $table->enum('type', array_values(Question::TYPES))->default(Question::TYPES['standard']);
+            $table->string('link')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('language_id')->references('id')->on('languages');

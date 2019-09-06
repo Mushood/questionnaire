@@ -31,6 +31,9 @@
                     </div>
 
                     <div class="panel-footer" v-if="selection.answers.length > 0">
+                        <span v-if="selection.question.link">
+                            <a :href="selection.question.link" target="_blank">More Info</a> <br />
+                        </span>
                         <span v-for="answer in selection.answers">
                             {{ answer.option.title }}
                             <span v-if="answer.option.correct"> - Correct</span>

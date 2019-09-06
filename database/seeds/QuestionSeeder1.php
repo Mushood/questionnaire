@@ -24,6 +24,8 @@ class QuestionSeeder1 extends Seeder
 
             $question->topic()->associate($topic);
 
+            $question->link = "https://www.example.com";
+
             if ($i > 25) {
                 $question->type = Question::TYPES['multiple'];
             }
