@@ -16,7 +16,7 @@
 
     export default {
         mounted() {
-            this.btnOps.visible=!this.btnOps.visible
+            
         },
 
         props: {
@@ -38,20 +38,14 @@
                     },
                     onComplete: () => {
                         console.log("complete");
-                        if (this.loaded) {
-                            window.location = this.route_start;
-                        } else {
-                            this.loaded = true;
-                        }
-
+                        window.location = this.route_start;
                     },
                     onBegin: () => {
                         console.log("begin");
                     },
-                    visible: false,
+                    visible: true,
                     animating: false
-                },
-                loaded: false
+                }
             }
         },
         components: {
