@@ -128,4 +128,21 @@ class QuestionnaireTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function testDelete()
+    {
+        $id = $this->test->id;
+
+        $this->assertDatabaseHas('tests', [
+            'id' => $id
+        ]);
+
+        $response = $this->delete('/test/' . $this->test->identifier, [
+            '_token' => csrf_token()
+        ]);
+
+        $this->assertDatabaseMissing('tests', [
+            'id' => $id
+        ]);
+    }
 }
