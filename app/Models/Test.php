@@ -8,6 +8,8 @@ class Test extends Model
 {
     const SESSION_KEY = "SESSION_QUESTIONNAIRE_KEY";
 
+    public $fillable = ['identifier'];
+
     public function user()
     {
         return $this->belongsTo('App\Models\User');
