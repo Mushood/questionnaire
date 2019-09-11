@@ -127,6 +127,10 @@ class ImportCsvQuestions extends Command
                 }
                 fclose($handle);
             }
+
+            $importCsv = new CsvQuestion();
+            $importCsv->name = $file;
+            $importCsv->save();
         }
     }
 }
