@@ -46,6 +46,7 @@ class ImportCsvQuestions extends Command
      */
     public function handle()
     {
+        $this->info('Starting import');
         $csvPath = storage_path('app/csv/');
 
         $files = scandir($csvPath);
@@ -56,6 +57,8 @@ class ImportCsvQuestions extends Command
             if (CsvQuestion::where('name', $file)->exists()) {
                 continue;
             }
+
+            $this->info('Importing: ' . $file);
 
             $row = 1;
             if (($handle = fopen($csvPath . $file, "r")) !== FALSE) {
@@ -132,5 +135,7 @@ class ImportCsvQuestions extends Command
             $importCsv->name = $file;
             $importCsv->save();
         }
+
+        $this->info('Import Complete');
     }
 }
