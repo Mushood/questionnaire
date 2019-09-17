@@ -69,19 +69,20 @@ class ImportCsvQuestions extends Command
                     $answer = [];
 
                     $quest    = $data[0];
-                    $option[] = $data[1];
+                    $code     = $data[1];
                     $option[] = $data[2];
                     $option[] = $data[3];
                     $option[] = $data[4];
                     $option[] = $data[5];
-                    $answer[] = $data[6];
+                    $option[] = $data[6];
                     $answer[] = $data[7];
                     $answer[] = $data[8];
                     $answer[] = $data[9];
                     $answer[] = $data[10];
-                    $language = $data[11];
-                    $topic    = $data[12];
-                    $link     = $data[13];
+                    $answer[] = $data[11];
+                    $language = $data[12];
+                    $topic    = $data[13];
+                    $link     = $data[14];
 
                     //number of correct answers
                     $cntYes   = count(array_filter($answer,function($a) {return $a===self::CORRECT;}));
@@ -100,7 +101,10 @@ class ImportCsvQuestions extends Command
                         $topic = Topic::where('title', $topic)->first();
                         $question->topic()->associate($topic);
 
-                        $question->link = "https://www.example.com";
+                        if ($code !== '-') {
+                            $question->code = $code;
+                        }
+                        $question->link = $link;
 
                         if ($cntYes > 1) {
                             $question->type = Question::TYPES['multiple'];
