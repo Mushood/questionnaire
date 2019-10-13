@@ -3,7 +3,7 @@
         <h1>{{ test.identifier }}</h1>
         <div class="row" v-for="(selection,index) in test.selections">
             <div class="col-md-8 col-md-offset-2">
-                <div :class="{'panel': true, 'panel-default': true, 'panel-success': selection.question.isCorrect, 'panel-danger': !selection.question.isCorrect}">
+                <div :class="{'panel': true, 'panel-default': true, 'panel-success': selection.question.isCorrect === true, 'panel-danger': selection.question.isCorrect === false}">
                     <div class="panel-heading" v-if="selection.question.code">
                         {{ index + 1 }}. {{ selection.question.title }}
                         <hr />
