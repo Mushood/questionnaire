@@ -12,6 +12,13 @@ class TakeController extends Controller
     {
         $test = Test::where('identifier', $identifier)->with('selections')->first();
 
+        $selections = $test->selections;
+        foreach ($selections as $selection) {
+            $selection->question->code = str_replace(
+                '\n', ' <br />', $selection->question->code
+            );
+        }
+
         $this->authorize('show', $test);
 
         return view('test', compact('test'));

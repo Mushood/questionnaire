@@ -3,8 +3,15 @@
         <h1>{{ test.identifier }}</h1>
         <div class="row" v-for="(selection,index) in test.selections">
             <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">{{ selection.question.title }}</div>
+                <div :class="{'panel': true, 'panel-default': true, 'panel-success': selection.question.isCorrect, 'panel-danger': !selection.question.isCorrect}">
+                    <div class="panel-heading" v-if="selection.question.code">
+                        {{ index + 1 }}. {{ selection.question.title }}
+                        <hr />
+                        <code v-html="selection.question.code"></code>
+                    </div>
+                    <div class="panel-heading" v-else>
+                        {{ index + 1 }}. {{ selection.question.title }}
+                    </div>
 
                     <div class="panel-body" v-if="selection.question.type == types.standard">
                         <span v-for="option in selection.question.options">
