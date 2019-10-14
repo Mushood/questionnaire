@@ -14,7 +14,7 @@
                     </div>
 
                     <div class="panel-body" v-if="selection.question.type == types.standard">
-                        <span v-for="option in selection.question.options">
+                        <span v-for="option in shuffle(selection.question.options)">
                             <input
                                 type="radio"
                                 v-model="answers[index]['answers'][0]"
@@ -26,7 +26,7 @@
                     </div>
 
                     <div class="panel-body" v-if="selection.question.type == types.multiple">
-                        <span v-for="option in selection.question.options">
+                        <span v-for="option in shuffle(selection.question.options)">
                             <input
                                     type="checkbox"
                                     v-model="answers[index]['answers']"
@@ -113,6 +113,14 @@
 
                 });
             },
+
+            shuffle: function(a) {
+                for (let i = a.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [a[i], a[j]] = [a[j], a[i]];
+                }
+                return a;
+            }
         },
     }
 </script>
