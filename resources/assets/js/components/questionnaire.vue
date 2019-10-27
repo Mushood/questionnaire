@@ -38,14 +38,12 @@
                     </div>
 
                     <div class="panel-footer" v-if="selection.answers.length > 0">
+                        <h4>Correct answers</h4>
                         <span v-if="selection.question.link">
                             <a :href="selection.question.link" target="_blank">More Info</a> <br />
                         </span>
-                        <span v-for="answer in selection.answers">
-                            {{ answer.option.title }}
-                            <span v-if="answer.option.correct"> - Correct</span>
-                            <span v-else> - Wrong</span>
-                            <br />
+                        <span v-for="option in selection.question.options">
+                            <span v-if="option.correct">{{ option.title }}  <br /></span>
                         </span>
                     </div>
                 </div>
@@ -72,6 +70,15 @@
                     'type' : this.test.selections[i].question.type,
                     'answers' : []
                 } ;
+
+                if (this.test.selections[i].answers && this.test.selections[i].answers.length > 0) {
+                    for (var j = 0; j < this.test.selections[i].answers.length; j++) {
+                        this.answers[i]['answers'].push({
+                            'option_id' : this.test.selections[i].answers[j].option_id,
+                            'selection_id' : this.test.selections[i].answers[j].selection_id
+                        });
+                    }
+                }
             }
         },
 
