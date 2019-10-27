@@ -108,13 +108,26 @@
         methods : {
             submitAnswers: function () {
                 const vm = this;
+                Vue.swal.showLoading({
+                    allowOutsideClick: false,
+                    enableLoading: true,
+                    showConfirmButton:false,
+                });
                 axios.post(vm.route_assess, {
                     _token: vm.csrf,
                     answers: vm.answers,
                     identifier: vm.test.identifier,
                 })
                 .then(function (response_axios) {
-                    window.location = response_axios.data.url;
+                    Vue.swal.hideLoading();
+                    Vue.swal({
+                        title: 'Success!',
+                        text: 'Assessment complete',
+                        type: 'success',
+                        confirmButtonText: 'See Results'
+                    }).then(function (response) {
+                        window.location = response_axios.data.url;
+                    });
                 })
                 .catch(function (error) {
 
@@ -127,7 +140,11 @@
                     [a[i], a[j]] = [a[j], a[i]];
                 }
                 return a;
-            }
+            },
+
+            loader: function() {
+                this.$swal('Hello Vue world!!!');
+            },
         },
     }
 </script>
