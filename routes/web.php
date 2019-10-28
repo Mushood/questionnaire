@@ -17,3 +17,6 @@ Route::post('/assess', 'TakeController@assess')->name('start.assess');
 Route::get('/test/results/{identifier}', 'ResultController@results')->name('start.results')->middleware('session_questionnaire');
 
 Route::delete('/test/{identifier}', 'ResultController@delete')->name('start.delete');
+
+Route::get('/question/edit/{question}', 'QuestionController@edit')->name('question.edit');
+Route::post('/question/{question}', 'QuestionController@update')->name('question.update');
