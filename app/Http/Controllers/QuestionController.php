@@ -48,14 +48,16 @@ class QuestionController extends Controller
         }
 
         for($i = 1 ; $i <= $count; $i++) {
-            $option                 = new Option();
-            $option->title          = $data['option_' . (count($question->options) + $i)];
-            $option->question_id    = $question->id;
-            $option->correct        = false;
-            if (isset($data['options_' . (count($question->options) + $i)])) {
-                $option->correct = true;
+            if (isset($data['option_' . (count($question->options) + $i)])) {
+                $option                 = new Option();
+                $option->title          = $data['option_' . (count($question->options) + $i)];
+                $option->question_id    = $question->id;
+                $option->correct        = false;
+                if (isset($data['options_' . (count($question->options) + $i)])) {
+                    $option->correct = true;
+                }
+                $option->save();
             }
-            $option->save();
         }
 
         return redirect()->back();

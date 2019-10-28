@@ -10,7 +10,7 @@
                         <code v-html="selection.question.code"></code>
                     </div>
                     <div class="panel-heading" v-else>
-                        {{ index + 1 }}. {{ selection.question.title }}
+                        {{ index + 1 }}. {{ selection.question.title }} - <a target="_blank" :href="'/question/edit/' + selection.question.id">Edit</a>
                     </div>
 
                     <div class="panel-body" v-if="selection.question.type == types.standard">
